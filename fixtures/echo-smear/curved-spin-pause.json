@@ -1,0 +1,12 @@
+{
+  "durationSec": 4,
+  "threshold": 5,
+  "measurePoint": [0, 0.85],
+  "keyframes": [
+    {"time": 0, "x": 170, "y": 370, "rotation": 0, "control1": [300, 40], "control2": [720, 50]},
+    {"time": 0.55, "x": 1030, "y": 360, "rotation": 6.28, "hold": true},
+    {"time": 1.2, "x": 1030, "y": 360, "rotation": 6.28, "control1": [1100, 600], "control2": [600, 120]},
+    {"time": 2, "x": 400, "y": 510, "rotation": 12.56, "hold": true},
+    {"time": 4, "x": 400, "y": 510, "rotation": 12.56}
+  ]
+}

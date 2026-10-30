@@ -11015,7 +11015,7 @@
         "after-effects",
         "animation"
       ],
-      "status": "planned",
+      "status": "implemented",
       "upstream": {
         "commit": "28181602fe2d9ffa38474a6e8155a89909a7b8aa",
         "path": "registry/components/echo-smear",
@@ -11028,14 +11028,141 @@
         "files": [
           "echo-smear.html"
         ],
-        "assetRights": "unreviewed; upstream files are references, not approved local fixtures"
+        "assetRights": "no upstream media copied; neutral vector shape drawn locally"
       },
       "dependencies": {
         "declared": {},
-        "review": "unreviewed"
+        "review": "reviewed"
       },
-      "parameterSchema": null,
-      "fixtures": [],
+      "parameterSchema": {
+        "type": "object",
+        "properties": {
+          "durationSec": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 30
+          },
+          "subframes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8
+          },
+          "length": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "threshold": {
+            "type": "number",
+            "minimum": 0
+          },
+          "countMult": {
+            "type": "number",
+            "minimum": 0
+          },
+          "maxEchoes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 60
+          },
+          "edgeSpacing": {
+            "type": "number",
+            "minimum": 0
+          },
+          "width": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 4096
+          },
+          "height": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 4096
+          },
+          "color": {
+            "type": "string",
+            "pattern": "^#[0-9a-fA-F]{6}$"
+          },
+          "operator": {
+            "enum": [
+              "maximum",
+              "normal"
+            ]
+          },
+          "measurePoint": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "keyframes": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 256,
+            "items": {
+              "type": "object",
+              "properties": {
+                "time": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "rotation": {
+                  "type": "number"
+                },
+                "scale": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "opacity": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "hold": {
+                  "type": "boolean"
+                },
+                "control1": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "control2": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              },
+              "required": [
+                "time",
+                "x",
+                "y"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "fixtures": [
+        "fixtures/echo-smear/curved-spin-pause.json",
+        "fixtures/echo-smear/neutral-red.webm"
+      ],
       "packet": "videoml-3549e41c-5375-492c-954e-99ceec5df56a"
     },
     {
