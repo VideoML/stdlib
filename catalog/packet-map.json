@@ -1,0 +1,922 @@
+{
+  "schemaVersion": 1,
+  "initiative": "videoml-dbc2b1",
+  "packets": [
+    {
+      "id": "videoml-9e6657bb-948e-4d89-a702-aa79462d40cd",
+      "paths": [
+        "registry/components/agent-cursor",
+        "registry/components/animated-bar-chart",
+        "registry/components/arc-motion-path",
+        "registry/components/ascii-render-pass",
+        "registry/components/ascii-trail-reveal"
+      ]
+    },
+    {
+      "id": "videoml-0107e5f2-d568-4273-9c89-8c512dec22b4",
+      "paths": [
+        "registry/components/aurora-drift",
+        "registry/components/avatar-cloud",
+        "registry/components/avatar-group-hover",
+        "registry/components/badge-pop",
+        "registry/components/beat-accent"
+      ]
+    },
+    {
+      "id": "videoml-855a021f-1dc1-4da3-9108-db05764e2c4f",
+      "paths": [
+        "registry/components/beat-pulse-background",
+        "registry/components/beat-timeline",
+        "registry/components/before-after-wipe",
+        "registry/components/blur-in",
+        "registry/components/blur-out-up"
+      ]
+    },
+    {
+      "id": "videoml-aed27e87-9cb7-4393-aac8-728a6c471d61",
+      "paths": [
+        "registry/components/bottom-up-letters",
+        "registry/components/browser-device-stage",
+        "registry/components/camera-rig-depth-stack",
+        "registry/components/camera-scan-gate",
+        "registry/components/camera-shake"
+      ]
+    },
+    {
+      "id": "videoml-964ba9e4-505f-446f-ba94-7e7939afc760",
+      "paths": [
+        "registry/components/caption-blend-difference",
+        "registry/components/caption-camera-follow",
+        "registry/components/caption-clip-wipe",
+        "registry/components/caption-editorial-emphasis",
+        "registry/components/caption-emoji-pop"
+      ]
+    },
+    {
+      "id": "videoml-4eb17333-ac77-4042-b89b-e295d4454d5a",
+      "paths": [
+        "registry/components/caption-glitch-rgb",
+        "registry/components/caption-gradient-fill",
+        "registry/components/caption-highlight",
+        "registry/components/caption-kinetic-slam",
+        "registry/components/caption-matrix-decode"
+      ]
+    },
+    {
+      "id": "videoml-873f9c43-1d43-4042-8044-ea593e62cea1",
+      "paths": [
+        "registry/components/caption-neon-accent",
+        "registry/components/caption-neon-glow",
+        "registry/components/caption-parallax-layers",
+        "registry/components/caption-particle-burst",
+        "registry/components/caption-pill-karaoke"
+      ]
+    },
+    {
+      "id": "videoml-85984f72-f255-4fd6-b2b8-c8e1103bd4bd",
+      "paths": [
+        "registry/components/caption-texture",
+        "registry/components/caption-weight-shift",
+        "registry/components/card-resize",
+        "registry/components/caret-swap",
+        "registry/components/char-slam-explode"
+      ]
+    },
+    {
+      "id": "videoml-bab15b85-da99-4f14-9fb2-e5bcf2901025",
+      "paths": [
+        "registry/components/chart-story",
+        "registry/components/chat-message",
+        "registry/components/chat-thread",
+        "registry/components/chromatic-aberration-wipe",
+        "registry/components/code-terminal-run"
+      ]
+    },
+    {
+      "id": "videoml-6af51aa1-f4e4-4a7b-84a9-e961c3255f0e",
+      "paths": [
+        "registry/components/colorama-wipe",
+        "registry/components/comparison-split",
+        "registry/components/confetti",
+        "registry/components/conic-progress-ring",
+        "registry/components/constellation-hub"
+      ]
+    },
+    {
+      "id": "videoml-aa256f53-ff64-47bc-a636-dbddd5d4613f",
+      "paths": [
+        "registry/components/count-up",
+        "registry/components/cta-close",
+        "registry/components/cta-lockup",
+        "registry/components/cursor-annotate",
+        "registry/components/cursor-context-menu"
+      ]
+    },
+    {
+      "id": "videoml-f7a576e3-c813-4374-9e1e-79d67afb1630",
+      "paths": [
+        "registry/components/cursor-drag-drop",
+        "registry/components/cursor-glyph-trail",
+        "registry/components/cursor-marquee-select",
+        "registry/components/cursor-text-select",
+        "registry/components/cursor-zoom-follow"
+      ]
+    },
+    {
+      "id": "videoml-1b0b596d-b457-4b55-b54a-fc18c6bbdb79",
+      "paths": [
+        "registry/components/curtain-reveal",
+        "registry/components/cut-the-curve",
+        "registry/components/dart-cursor",
+        "registry/components/decline-chart",
+        "registry/components/device-frame-stage"
+      ]
+    },
+    {
+      "id": "videoml-3549e41c-5375-492c-954e-99ceec5df56a",
+      "paths": [
+        "registry/components/directional-wipe",
+        "registry/components/drift-hold",
+        "registry/components/dynamic-grid",
+        "registry/components/echo-smear",
+        "registry/components/echo-trail"
+      ]
+    },
+    {
+      "id": "videoml-0a93af12-9e23-4ef7-89eb-6870fcf5213e",
+      "paths": [
+        "registry/components/extended-keyframe",
+        "registry/components/facet-morph",
+        "registry/components/fade-through",
+        "registry/components/filmed-screen",
+        "registry/components/focus-blur-resolve"
+      ]
+    },
+    {
+      "id": "videoml-b98a179c-94fd-4fd6-81cc-0bd30497f722",
+      "paths": [
+        "registry/components/focus-rack",
+        "registry/components/focus-swap",
+        "registry/components/gesture-tap",
+        "registry/components/gloss-sweep",
+        "registry/components/grade-split-reveal"
+      ]
+    },
+    {
+      "id": "videoml-ee253ee3-9f9e-4b1d-a539-b2ba6d733d37",
+      "paths": [
+        "registry/components/grain-field",
+        "registry/components/grain-overlay",
+        "registry/components/grid-card-assemble",
+        "registry/components/grid-pixelate-wipe",
+        "registry/components/halftone-dissolve"
+      ]
+    },
+    {
+      "id": "videoml-4a9459dc-066a-43a1-8fa1-56ba6ff901f6",
+      "paths": [
+        "registry/components/headline-slam",
+        "registry/components/hw-arrow",
+        "registry/components/hw-boil",
+        "registry/components/hw-box-label",
+        "registry/components/hw-callout-circle"
+      ]
+    },
+    {
+      "id": "videoml-4fe1d5b5-f4fc-4424-a03c-cb459134c40a",
+      "paths": [
+        "registry/components/hw-underline",
+        "registry/components/icon-morph-beat",
+        "registry/components/icon-swap",
+        "registry/components/ink-bleed-reveal",
+        "registry/components/inline-highlight"
+      ]
+    },
+    {
+      "id": "videoml-bae6bd71-bc49-4fd9-bb48-b7fd0e4bf3cd",
+      "paths": [
+        "registry/components/input-feedback",
+        "registry/components/iris-reveal",
+        "registry/components/keyframe-scrub-stack",
+        "registry/components/kinetic-center-build",
+        "registry/components/kinetic-type-swap"
+      ]
+    },
+    {
+      "id": "videoml-fa3f6ec7-5968-453f-91b4-403396e4687e",
+      "paths": [
+        "registry/components/light-sweep-pass",
+        "registry/components/line-by-line-slide",
+        "registry/components/line-swap",
+        "registry/components/locked-nucleus-orbit",
+        "registry/components/logo-brand-close"
+      ]
+    },
+    {
+      "id": "videoml-69161c93-246c-41e6-8bbd-f33a3536cbba",
+      "paths": [
+        "registry/components/logo-sting",
+        "registry/components/logo-wall",
+        "registry/components/magnetic-cursor",
+        "registry/components/marker-checklist-card",
+        "registry/components/marker-highlight"
+      ]
+    },
+    {
+      "id": "videoml-b5cf60d4-ef91-425c-a60a-96a474c0c904",
+      "paths": [
+        "registry/components/match-cut",
+        "registry/components/matrix-decode",
+        "registry/components/menu-morph",
+        "registry/components/mesh-gradient-bg",
+        "registry/components/micro-transitions"
+      ]
+    },
+    {
+      "id": "videoml-8990df0f-60f4-490d-9f1f-4ca7f360ba5e",
+      "paths": [
+        "registry/components/mk-emphasis-type",
+        "registry/components/mk-usage-arc",
+        "registry/components/modal-morph",
+        "registry/components/morph-swap",
+        "registry/components/morph-text"
+      ]
+    },
+    {
+      "id": "videoml-5dcd9483-5e48-4f9e-8462-9427558698cb",
+      "paths": [
+        "registry/components/motion-blur",
+        "registry/components/multi-device-splay",
+        "registry/components/multiplayer-cursors",
+        "registry/components/native-notification-pop",
+        "registry/components/notes-typing"
+      ]
+    },
+    {
+      "id": "videoml-d0ad1c24-0d7b-4659-ae85-b72036c26f6e",
+      "paths": [
+        "registry/components/notification-pileup",
+        "registry/components/notification-stack",
+        "registry/components/number-pop-in",
+        "registry/components/number-wheel",
+        "registry/components/offset-path-traveler"
+      ]
+    },
+    {
+      "id": "videoml-cebc3050-bc5c-4a16-9c30-13cf945a906c",
+      "paths": [
+        "registry/components/onboarding-stepper-flow",
+        "registry/components/ordered-dither-pass",
+        "registry/components/outline-draw",
+        "registry/components/oversized-cursor",
+        "registry/components/overwhelm-surround"
+      ]
+    },
+    {
+      "id": "videoml-21a9cdb7-11fa-4694-8969-2db7e19467f9",
+      "paths": [
+        "registry/components/page-slide",
+        "registry/components/pan-stations",
+        "registry/components/panel-reveal",
+        "registry/components/paper-collage-reveal",
+        "registry/components/parallax-device-dive"
+      ]
+    },
+    {
+      "id": "videoml-f053fe29-0437-42d6-b1de-21fdc2254707",
+      "paths": [
+        "registry/components/parallax-unzoom",
+        "registry/components/parallax-zoom",
+        "registry/components/particle-image-reveal",
+        "registry/components/particle-text-dissolve",
+        "registry/components/pendulum-swing"
+      ]
+    },
+    {
+      "id": "videoml-24518672-c15a-41ed-a155-3352acdeeedc",
+      "paths": [
+        "registry/components/per-word-crossfade",
+        "registry/components/per-word-rise",
+        "registry/components/perspective-marquee",
+        "registry/components/physical-exit",
+        "registry/components/press-ripple"
+      ]
+    },
+    {
+      "id": "videoml-bbda7cd3-ff61-4256-a22d-31a78550a709",
+      "paths": [
+        "registry/components/pull-back-reveal",
+        "registry/components/pull-to-refresh",
+        "registry/components/push-in",
+        "registry/components/radial-surround",
+        "registry/components/rgb-glitch-text"
+      ]
+    },
+    {
+      "id": "videoml-a190b54a-60f9-43ee-a690-9dd0015bc2a8",
+      "paths": [
+        "registry/components/rubber-band-bumper",
+        "registry/components/scan-band",
+        "registry/components/scramble-reveal",
+        "registry/components/screen-flow-carousel",
+        "registry/components/scroll-camera-story"
+      ]
+    },
+    {
+      "id": "videoml-d1d3ebe3-1a4b-4ee5-a404-451a846f4b26",
+      "paths": [
+        "registry/components/scroll-feed",
+        "registry/components/segmentation-flood",
+        "registry/components/separator",
+        "registry/components/settings-toggle-flow",
+        "registry/components/shared-axis-y"
+      ]
+    },
+    {
+      "id": "videoml-c0705837-17a7-444a-93f9-cf08917fbb42",
+      "paths": [
+        "registry/components/shared-axis-z",
+        "registry/components/sheet-spring-up",
+        "registry/components/shimmer-sweep",
+        "registry/components/shutter-slam",
+        "registry/components/signup-flow"
+      ]
+    },
+    {
+      "id": "videoml-0256aa34-5c9e-46e5-95bd-d8c7c8bfb0f2",
+      "paths": [
+        "registry/components/skeleton-reveal",
+        "registry/components/slit-scan-reveal",
+        "registry/components/slot-machine-roll",
+        "registry/components/social-proof-card",
+        "registry/components/soft-blob-touch"
+      ]
+    },
+    {
+      "id": "videoml-8af021ce-943c-43ce-ab29-7fc269f09d3e",
+      "paths": [
+        "registry/components/soft-blur-in",
+        "registry/components/split-tilt-cards",
+        "registry/components/spotlight-card",
+        "registry/components/spring-pop",
+        "registry/components/spring-stack-shuffle"
+      ]
+    },
+    {
+      "id": "videoml-117011e2-7940-4a44-b913-2b742fdd4e03",
+      "paths": [
+        "registry/components/stagger-cascade",
+        "registry/components/stagger-lattice",
+        "registry/components/staggered-fade-up",
+        "registry/components/star-rating-fill",
+        "registry/components/state-chip-rail"
+      ]
+    },
+    {
+      "id": "videoml-80720142-2ecb-481b-b44e-d98d7506f70d",
+      "paths": [
+        "registry/components/sticky-mock-swap",
+        "registry/components/stitched-text-draw",
+        "registry/components/stop-motion-cadence",
+        "registry/components/store-badge-lockup",
+        "registry/components/streaming-text"
+      ]
+    },
+    {
+      "id": "videoml-bedfada7-1241-488f-a6bc-116bcdb97a05",
+      "paths": [
+        "registry/components/strikethrough-replace",
+        "registry/components/success-check",
+        "registry/components/svg-line-draw-loader",
+        "registry/components/svg-mask-reveal",
+        "registry/components/svg-stroke-trace"
+      ]
+    },
+    {
+      "id": "videoml-23158d4b-c35d-4c0b-8957-28fc25124d25",
+      "paths": [
+        "registry/components/swipe-rail",
+        "registry/components/tabs-slide-indicator",
+        "registry/components/telemetry-hud",
+        "registry/components/terminal-simulator",
+        "registry/components/testimonial-card"
+      ]
+    },
+    {
+      "id": "videoml-ea3e1aa6-59a4-4cd7-a22a-0dded7c7bc12",
+      "paths": [
+        "registry/components/testimonial-proof-card",
+        "registry/components/text-match-cut",
+        "registry/components/text-shimmer",
+        "registry/components/text-stagger",
+        "registry/components/text-state-swap"
+      ]
+    },
+    {
+      "id": "videoml-f2012269-9318-4c1b-9af1-8fc3d831ed94",
+      "paths": [
+        "registry/components/texture-mask-text",
+        "registry/components/three-orbiting-cards",
+        "registry/components/ticker-takeover",
+        "registry/components/tilt-card",
+        "registry/components/titlecard-calm"
+      ]
+    },
+    {
+      "id": "videoml-c31eafd2-9a57-4ef1-90f2-874a4b683436",
+      "paths": [
+        "registry/components/titlecard-lockup",
+        "registry/components/toggle-flip",
+        "registry/components/top-down-letters",
+        "registry/components/torn-paper-rip",
+        "registry/components/touch-indicator"
+      ]
+    },
+    {
+      "id": "videoml-3339c1a8-c2f9-480a-bad4-7ac43dcbe112",
+      "paths": [
+        "registry/components/tracing-beam",
+        "registry/components/tracking-in",
+        "registry/components/trust-strip",
+        "registry/components/type-match-cut",
+        "registry/components/typed-prompt"
+      ]
+    },
+    {
+      "id": "videoml-c576e22f-d77b-4deb-8986-8ab4ac6b123f",
+      "paths": [
+        "registry/components/typewriter",
+        "registry/components/typing-indicator",
+        "registry/components/ui-focus-zoom",
+        "registry/components/variable-axis-type",
+        "registry/components/variable-font-flex"
+      ]
+    },
+    {
+      "id": "videoml-f9700b57-2cf2-455a-88e9-7d6e2daba4ee",
+      "paths": [
+        "registry/components/vector-editor-rig",
+        "registry/components/velocity-throw-snap",
+        "registry/components/vignette",
+        "registry/components/vox-annotate",
+        "registry/components/whip-pan-cut"
+      ]
+    },
+    {
+      "id": "videoml-160fd75b-d010-4a12-90fe-fa234a1d7866",
+      "paths": [
+        "registry/components/whiteboard-ink",
+        "registry/components/wordmark-tiles",
+        "registry/components/x-follow-card",
+        "registry/components/yt-camera-move",
+        "registry/components/yt-circle-pointer"
+      ]
+    },
+    {
+      "id": "videoml-885a7cf8-b980-45d4-b34b-1c845f719eab",
+      "paths": [
+        "registry/components/yt-feather-highlight",
+        "registry/components/yt-screen-warp",
+        "registry/components/zoom-through-transition"
+      ]
+    },
+    {
+      "id": "videoml-7b333a55-7d67-4d07-9832-fb6622592ffb",
+      "paths": [
+        "registry/blocks/ai-answer-rank",
+        "registry/blocks/ai-chat-reveal",
+        "registry/blocks/app-showcase",
+        "registry/blocks/apple-money-count",
+        "registry/blocks/aurora"
+      ]
+    },
+    {
+      "id": "videoml-73402bea-34e4-4f5f-b5a6-2fe1431df938",
+      "paths": [
+        "registry/blocks/bar-chart-race",
+        "registry/blocks/beat-freeze-cut",
+        "registry/blocks/blob",
+        "registry/blocks/blue-sweater-intro-video",
+        "registry/blocks/camcorder-hud"
+      ]
+    },
+    {
+      "id": "videoml-a6310ea7-5d43-480a-add9-8243d2564c2e",
+      "paths": [
+        "registry/blocks/camera-dolly-zoom",
+        "registry/blocks/canopy-part-title",
+        "registry/blocks/carousel-circle-1",
+        "registry/blocks/carousel-circle-2",
+        "registry/blocks/carousel-circle-3"
+      ]
+    },
+    {
+      "id": "videoml-56b7d03a-af18-46ac-99dd-075256964456",
+      "paths": [
+        "registry/blocks/carousel-circle-4",
+        "registry/blocks/carousel-circle-5",
+        "registry/blocks/carousel-orbit-1",
+        "registry/blocks/carousel-orbit-2",
+        "registry/blocks/carousel-orbit-3"
+      ]
+    },
+    {
+      "id": "videoml-2431bf14-886c-409e-9376-b811f76c1d40",
+      "paths": [
+        "registry/blocks/carousel-orbit-4",
+        "registry/blocks/carousel-orbit-5",
+        "registry/blocks/carousel-path-1",
+        "registry/blocks/carousel-path-2",
+        "registry/blocks/carousel-path-3"
+      ]
+    },
+    {
+      "id": "videoml-d8b8c20c-6324-4024-8a65-89e41711c517",
+      "paths": [
+        "registry/blocks/carousel-path-4",
+        "registry/blocks/carousel-path-5",
+        "registry/blocks/carousel-text-circle-1",
+        "registry/blocks/carousel-text-circle-2",
+        "registry/blocks/carousel-text-circle-3"
+      ]
+    },
+    {
+      "id": "videoml-ceb422c3-e46a-45df-be08-87e4d8782340",
+      "paths": [
+        "registry/blocks/carousel-text-circle-4",
+        "registry/blocks/carousel-text-circle-5",
+        "registry/blocks/carousel-vision-1",
+        "registry/blocks/carousel-vision-2",
+        "registry/blocks/carousel-vision-3"
+      ]
+    },
+    {
+      "id": "videoml-601ad85f-c165-4829-a19e-a08498ef642a",
+      "paths": [
+        "registry/blocks/carousel-vision-4",
+        "registry/blocks/carousel-vision-5",
+        "registry/blocks/chatgpt-exchange",
+        "registry/blocks/chromatic-radial-split",
+        "registry/blocks/chrome-orb"
+      ]
+    },
+    {
+      "id": "videoml-a74d9890-6bbd-48c5-954a-910f422c94f1",
+      "paths": [
+        "registry/blocks/cinemagraph",
+        "registry/blocks/cinematic-zoom",
+        "registry/blocks/claude-exchange",
+        "registry/blocks/code-3d-extrude",
+        "registry/blocks/code-diff"
+      ]
+    },
+    {
+      "id": "videoml-36b3d6fb-6331-4775-bfbc-680d9cabbdd0",
+      "paths": [
+        "registry/blocks/code-highlight",
+        "registry/blocks/code-morph",
+        "registry/blocks/code-particle-assemble",
+        "registry/blocks/code-scroll",
+        "registry/blocks/code-shader-dissolve"
+      ]
+    },
+    {
+      "id": "videoml-a2dc1fa5-e496-4744-be59-5fa418150458",
+      "paths": [
+        "registry/blocks/code-slice-hero",
+        "registry/blocks/code-snippet-apple-terminal-pro",
+        "registry/blocks/code-snippet-dark-2026",
+        "registry/blocks/code-snippet-dark-modern",
+        "registry/blocks/code-typing"
+      ]
+    },
+    {
+      "id": "videoml-bc92b5d1-16f9-435c-8333-adeed7eef69a",
+      "paths": [
+        "registry/blocks/color-wheel",
+        "registry/blocks/cosmic-orb",
+        "registry/blocks/cross-warp-morph",
+        "registry/blocks/cuboid-carousel",
+        "registry/blocks/data-chart"
+      ]
+    },
+    {
+      "id": "videoml-505359c8-93d2-4a6b-8cf9-f807e9449f04",
+      "paths": [
+        "registry/blocks/domain-warp-dissolve",
+        "registry/blocks/editorial-flash-overlay",
+        "registry/blocks/exploded-stack",
+        "registry/blocks/extruded-logo",
+        "registry/blocks/falling-lines"
+      ]
+    },
+    {
+      "id": "videoml-cf6bfe58-b6e2-4b27-8c9b-93fa63a575c9",
+      "paths": [
+        "registry/blocks/flash-through-white",
+        "registry/blocks/flowchart",
+        "registry/blocks/flowchart-vertical",
+        "registry/blocks/flowing-gradient",
+        "registry/blocks/fractal-noise"
+      ]
+    },
+    {
+      "id": "videoml-d3e92363-93e6-455b-b3ba-42b95f0ab98b",
+      "paths": [
+        "registry/blocks/freeze-frame-dressing",
+        "registry/blocks/frost",
+        "registry/blocks/frost-sequence-camera-orbit",
+        "registry/blocks/gabor-noise",
+        "registry/blocks/gallery-tunnel"
+      ]
+    },
+    {
+      "id": "videoml-6d446d93-98e6-434b-bb2d-98d9b0c6dffb",
+      "paths": [
+        "registry/blocks/glass-hero",
+        "registry/blocks/glass-shard-title",
+        "registry/blocks/glitch",
+        "registry/blocks/godrays",
+        "registry/blocks/goo"
+      ]
+    },
+    {
+      "id": "videoml-3be9801c-d398-4c35-ae6e-dd6060bc1eb9",
+      "paths": [
+        "registry/blocks/gooey-split",
+        "registry/blocks/gravitational-lens",
+        "registry/blocks/halftone-field",
+        "registry/blocks/heatmap",
+        "registry/blocks/heygen-avatar-promo-card"
+      ]
+    },
+    {
+      "id": "videoml-d001ce26-05d1-42a9-8209-0fa876dc8807",
+      "paths": [
+        "registry/blocks/hologram",
+        "registry/blocks/holographic",
+        "registry/blocks/hw-frame",
+        "registry/blocks/hw-path-text",
+        "registry/blocks/hw-pipeline"
+      ]
+    },
+    {
+      "id": "videoml-90ba45ea-a1e7-42b4-9500-f8cb536fed5c",
+      "paths": [
+        "registry/blocks/hw-scribble-transition",
+        "registry/blocks/hw-text-cloud",
+        "registry/blocks/hw-title",
+        "registry/blocks/hw-write-title",
+        "registry/blocks/instagram-follow"
+      ]
+    },
+    {
+      "id": "videoml-80c1876b-2289-411d-bb6b-fcd850c49cf6",
+      "paths": [
+        "registry/blocks/ios26-liquid-glass",
+        "registry/blocks/lens-flare",
+        "registry/blocks/light-edge",
+        "registry/blocks/light-leak",
+        "registry/blocks/liquid-glass-notification"
+      ]
+    },
+    {
+      "id": "videoml-05ad61f1-6cae-462f-aecf-7f4dcd91b0a7",
+      "paths": [
+        "registry/blocks/liquid-glass-widgets",
+        "registry/blocks/liquid-metal",
+        "registry/blocks/logo-outro",
+        "registry/blocks/lottie-character-walk",
+        "registry/blocks/lower-third-bild"
+      ]
+    },
+    {
+      "id": "videoml-2695eb00-b0c8-4b52-ab1d-6a4ea4adc0c8",
+      "paths": [
+        "registry/blocks/lt-accent-underline",
+        "registry/blocks/lt-bold-block",
+        "registry/blocks/lt-clean-bar",
+        "registry/blocks/lt-color-block",
+        "registry/blocks/lt-dark-card"
+      ]
+    },
+    {
+      "id": "videoml-221d9d13-4d70-4461-bb57-46ef69c7c951",
+      "paths": [
+        "registry/blocks/lt-kicker-name",
+        "registry/blocks/lt-mask-reveal",
+        "registry/blocks/lt-neon-border",
+        "registry/blocks/lt-side-rule",
+        "registry/blocks/lt-soft-pill"
+      ]
+    },
+    {
+      "id": "videoml-cfefde77-f0e6-4ef4-83da-1fd43a1b9c50",
+      "paths": [
+        "registry/blocks/lt-stack-bars",
+        "registry/blocks/macos-notification",
+        "registry/blocks/macos-tahoe-liquid-glass",
+        "registry/blocks/marble",
+        "registry/blocks/mesh-gradient"
+      ]
+    },
+    {
+      "id": "videoml-5a651e33-593d-4fd9-b197-c70f7654f7bf",
+      "paths": [
+        "registry/blocks/message-thread-reveal",
+        "registry/blocks/mk-background",
+        "registry/blocks/mk-callout-highlight",
+        "registry/blocks/mk-clone-wall-transition",
+        "registry/blocks/mk-line-graph"
+      ]
+    },
+    {
+      "id": "videoml-b80d7cc0-6fdf-40ea-afde-b88f0cb4a39b",
+      "paths": [
+        "registry/blocks/mk-placeholder-grid",
+        "registry/blocks/mk-progress-stat",
+        "registry/blocks/mk-specs-list",
+        "registry/blocks/nebula",
+        "registry/blocks/news-ticker"
+      ]
+    },
+    {
+      "id": "videoml-b613b03a-286f-4fb2-a19f-c2d96f798ce4",
+      "paths": [
+        "registry/blocks/north-korea-locked-down",
+        "registry/blocks/notes-reveal",
+        "registry/blocks/notification-cascade",
+        "registry/blocks/nyc-paris-flight",
+        "registry/blocks/obsidian"
+      ]
+    },
+    {
+      "id": "videoml-280466d6-d9b9-477d-8d5b-2862e8f87d5f",
+      "paths": [
+        "registry/blocks/orbit-card",
+        "registry/blocks/organic-light-leak-overlay",
+        "registry/blocks/oscilloscope-trace",
+        "registry/blocks/plasma",
+        "registry/blocks/plastic"
+      ]
+    },
+    {
+      "id": "videoml-ae76d48d-718e-4cf2-a9a4-cfd8a71a0551",
+      "paths": [
+        "registry/blocks/prism",
+        "registry/blocks/product-turntable",
+        "registry/blocks/rack-focus",
+        "registry/blocks/reddit-post",
+        "registry/blocks/ridged-burn"
+      ]
+    },
+    {
+      "id": "videoml-01b6ec36-8f33-4abb-adec-5defd4fac46e",
+      "paths": [
+        "registry/blocks/ripple-waves",
+        "registry/blocks/ripples",
+        "registry/blocks/sdf-iris",
+        "registry/blocks/share-sheet-carousel",
+        "registry/blocks/sine-wave"
+      ]
+    },
+    {
+      "id": "videoml-9ad10e1c-b5f1-420a-95b7-afd0ceeedfd4",
+      "paths": [
+        "registry/blocks/slack-notification-ad",
+        "registry/blocks/snow",
+        "registry/blocks/spain-map",
+        "registry/blocks/spiral",
+        "registry/blocks/spiral-galaxy"
+      ]
+    },
+    {
+      "id": "videoml-98f4e76a-e411-45ec-b195-c870c23a0753",
+      "paths": [
+        "registry/blocks/split-flap-board",
+        "registry/blocks/spotify-card",
+        "registry/blocks/starfield",
+        "registry/blocks/strands",
+        "registry/blocks/stripes"
+      ]
+    },
+    {
+      "id": "videoml-3203f816-d10e-460d-8680-a9b20114731a",
+      "paths": [
+        "registry/blocks/sun-burst",
+        "registry/blocks/swirl",
+        "registry/blocks/swirl-vortex",
+        "registry/blocks/thermal-distortion",
+        "registry/blocks/thin-film"
+      ]
+    },
+    {
+      "id": "videoml-072eb9e1-bf65-4faf-a4a7-11a3e23a66e1",
+      "paths": [
+        "registry/blocks/thread-message-stack",
+        "registry/blocks/tiktok-follow",
+        "registry/blocks/transitions-3d",
+        "registry/blocks/transitions-blur",
+        "registry/blocks/transitions-cover"
+      ]
+    },
+    {
+      "id": "videoml-c571d218-94fc-4d7d-a130-19493dbd871f",
+      "paths": [
+        "registry/blocks/transitions-destruction",
+        "registry/blocks/transitions-dissolve",
+        "registry/blocks/transitions-distortion",
+        "registry/blocks/transitions-grid",
+        "registry/blocks/transitions-light"
+      ]
+    },
+    {
+      "id": "videoml-6e24c59f-792b-435b-872d-2d2e3378a0b9",
+      "paths": [
+        "registry/blocks/transitions-mechanical",
+        "registry/blocks/transitions-other",
+        "registry/blocks/transitions-push",
+        "registry/blocks/transitions-radial",
+        "registry/blocks/transitions-scale"
+      ]
+    },
+    {
+      "id": "videoml-e6b92619-917a-45db-a18d-b5eda0ebaaeb",
+      "paths": [
+        "registry/blocks/ui-3d-reveal",
+        "registry/blocks/us-map",
+        "registry/blocks/us-map-bubble",
+        "registry/blocks/us-map-flow",
+        "registry/blocks/us-map-hex"
+      ]
+    },
+    {
+      "id": "videoml-fdef50bb-f0ef-418c-9eaf-399272ee7016",
+      "paths": [
+        "registry/blocks/vfx-anamorphic-flare",
+        "registry/blocks/vfx-iphone-device",
+        "registry/blocks/vfx-liquid-background",
+        "registry/blocks/vfx-liquid-glass",
+        "registry/blocks/vfx-magnetic"
+      ]
+    },
+    {
+      "id": "videoml-41bcc0d4-727f-4189-8559-ee295fcef735",
+      "paths": [
+        "registry/blocks/vfx-portal",
+        "registry/blocks/vfx-shatter",
+        "registry/blocks/vfx-text-cursor",
+        "registry/blocks/voronoi",
+        "registry/blocks/vpn-youtube-spot"
+      ]
+    },
+    {
+      "id": "videoml-4c047214-f74a-4857-b2ca-4012332dc7de",
+      "paths": [
+        "registry/blocks/water",
+        "registry/blocks/waveform",
+        "registry/blocks/week-in-merges",
+        "registry/blocks/weight-wave",
+        "registry/blocks/whip-pan"
+      ]
+    },
+    {
+      "id": "videoml-678cf23d-d669-4b5d-8121-7dc6feddafb1",
+      "paths": [
+        "registry/blocks/wireframe-portal-title",
+        "registry/blocks/world-map",
+        "registry/blocks/worley-noise",
+        "registry/blocks/x-post",
+        "registry/blocks/yt-comment-card"
+      ]
+    },
+    {
+      "id": "videoml-c41cc194-b2db-4e5e-8733-5f46d0b0d047",
+      "paths": [
+        "registry/blocks/yt-lcd-background",
+        "registry/blocks/yt-logo-intro",
+        "registry/blocks/yt-lower-third",
+        "registry/blocks/yt-prism-title",
+        "registry/blocks/yt-vertical-fill"
+      ]
+    },
+    {
+      "id": "videoml-842abb9a-7da7-4f7a-91c2-c27a98712b7e",
+      "paths": [
+        "registry/examples/decision-tree",
+        "registry/examples/kinetic-type",
+        "registry/examples/nyt-graph",
+        "registry/examples/play-mode",
+        "registry/examples/product-promo"
+      ]
+    },
+    {
+      "id": "videoml-5e1b4388-0bec-4bce-ab08-6b989e700f86",
+      "paths": [
+        "registry/examples/swiss-grid",
+        "registry/examples/vignelli",
+        "registry/examples/warm-grain"
+      ]
+    }
+  ]
+}

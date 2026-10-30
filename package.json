@@ -9,6 +9,15 @@
     ".": "./src/index.ts",
     "./dom": "./src/dom/index.ts",
     "./react": "./src/react/index.ts",
-    "./tokens": "./src/tokens/index.ts"
+    "./tokens": "./src/tokens/index.ts",
+    "./catalog": "./catalog/manifest.json",
+    "./catalog/schema": "./catalog/schema.json",
+    "./effects": "./src/effects/index.ts"
+  },
+  "scripts": {
+    "test:catalog": "node --test tests/catalog.test.mjs"
+  },
+  "dependencies": {
+    "ajv": "8.17.1"
   }
 }

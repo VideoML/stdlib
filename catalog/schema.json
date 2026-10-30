@@ -1,0 +1,252 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://videoml.org/schemas/catalog-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "upstream",
+    "counts",
+    "entries"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "upstream": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "commit",
+        "registry",
+        "shaderRegistry"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "format": "uri"
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "registry": {
+          "type": "string"
+        },
+        "shaderRegistry": {
+          "type": "string"
+        }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "registry",
+        "shaders",
+        "total",
+        "verified"
+      ],
+      "properties": {
+        "registry": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "shaders": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "verified": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    }
+  },
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "name",
+        "title",
+        "description",
+        "category",
+        "tags",
+        "status",
+        "upstream",
+        "dependencies",
+        "parameterSchema",
+        "fixtures",
+        "packet"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(component|block|example|shader)/[a-z0-9][a-z0-9-]*$"
+        },
+        "kind": {
+          "enum": [
+            "component",
+            "block",
+            "example",
+            "shader"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "enum": [
+            "planned",
+            "implemented",
+            "verified"
+          ]
+        },
+        "upstream": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "commit",
+            "path",
+            "registryItem",
+            "license",
+            "licenseBasis",
+            "notices",
+            "files",
+            "assetRights"
+          ],
+          "properties": {
+            "commit": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{40}$"
+            },
+            "path": {
+              "type": "string"
+            },
+            "registryItem": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "license": {
+              "type": "string"
+            },
+            "licenseBasis": {
+              "type": "string"
+            },
+            "notices": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "files": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "assetRights": {
+              "type": "string"
+            }
+          }
+        },
+        "dependencies": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "declared",
+            "review"
+          ],
+          "properties": {
+            "declared": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "review": {
+              "type": "string"
+            }
+          }
+        },
+        "parameterSchema": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "fixtures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "packet": {
+          "type": "string",
+          "pattern": "^videoml-[a-z0-9-]+$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "verified"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "parameterSchema": {
+                "type": "object",
+                "minProperties": 1
+              },
+              "fixtures": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
