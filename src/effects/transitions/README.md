@@ -1,0 +1,9 @@
+# Scene transitions
+
+`SceneFrameSource` advances a scene at an absolute composition frame, returns settled pixels, and disposes its resources. Each side must be a distinct source. Captured `ImageBitmap` objects transfer ownership to the compositor and are closed after use, including late results after cancellation. Other canvas image sources remain owned by the caller. Source failures are surfaced and never trigger a shader fallback.
+
+`mountSceneCompositor` uses the same crossfade or domain-warp pixel renderer in preview and export. Native canvas/WebGL scenes can supply these sources directly. General HTML scene pixels require a host-provided browser capture source; the player does not claim to rasterize arbitrary DOM. Missing sources raise `SCENE_CAPTURE_UNAVAILABLE`. Domain-warp can fall back to crossfade only when explicitly requested and a diagnostic handler is supplied; the handler receives `CROSSFADE_FALLBACK`.
+
+The trusted local-bundle renderer protocol mounts two isolated, explicitly selected scenes with dimensions, fps, seed, assets and scene ID, seeks each to the composition-absolute frame, and captures the browser-painted page before uploading the PNGs to a third compositor page. The player `mountPlayerCaptureScene` wrapper uses the existing player lifecycle and `captureSceneId` visibility override. Hosts must settle their own asynchronous framework state; no arbitrary wait or network fetch is provided. Browser stages have bounded timeouts and accept cancellation. The captured PNG bridge limits bytes and decoded dimensions.
+
+Domain-warp GLSL is adapted from the pinned Hyperframes source identified in NOTICE. Endpoints bypass the warp to reproduce exact scene pixels. Tests compare intermediate opaque frames against the pinned upstream shader; pinned Linux, preview/export encoded-video release evidence remains a separate release gate.

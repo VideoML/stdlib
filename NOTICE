@@ -1,1 +1,3 @@
 Shared animation demos in src/demos are adapted from Babulus, Copyright (c) 2026 Ryan Porter, distributed under the MIT license included in LICENSE. Framework dependencies are separate packages and retain their own licenses. The bundled neutral Lottie badge is based on Babulus source code; no external unlicensed animation asset is included.
+
+The domain-warp fragment and noise functions in src/effects/transitions/renderer.ts are adapted from Hyperframes packages/shader-transitions/src/shaders/registry.ts and common.ts at commit 28181602fe2d9ffa38474a6e8155a89909a7b8aa, Copyright Hyperframes contributors, licensed under Apache License 2.0. The original license is provided in licenses/Apache-2.0.txt.
