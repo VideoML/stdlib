@@ -7,3 +7,5 @@ License entries describe source declarations, not approval to redistribute every
 The 456 registry entries map one-to-one to the 92 C packets in `packet-map.json`; the 13 shader registry entries are assigned to P08. The manifest records implementation status; verified counts require browser evidence and review.
 
 The implementations of `particle-text-dissolve` and `particle-image-reveal` adapt the corresponding Hyperframes components at the pinned revision under Apache 2.0; their source is in `src/effects/particles/`. The included Geist font is distributed under SIL OFL 1.1 with its license in `fixtures/particles/Geist-OFL.txt`, and the neutral image fixture is original MIT-licensed artwork.
+
+The implementation of `echo-smear` adapts the motion-measurement, bounded copy count and past-pose sampling concepts from Hyperframes `registry/components/echo-smear/echo-smear.html` at the pinned revision under Apache 2.0. Its source is in `src/effects/echo-smear/` and the Apache 2.0 license is included in `catalog/licenses/Apache-2.0.txt`.

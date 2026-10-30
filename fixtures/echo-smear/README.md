@@ -1,0 +1,1 @@
+The curved/spinning/paused trajectory is an original VideoML fixture. `neutral-red.webm` is an original 32×32 red test clip generated locally with FFmpeg's `color` source; it is used only to verify that an available video frame is frozen into an inert bitmap. Both fixtures are distributed under the repository's MIT license.
