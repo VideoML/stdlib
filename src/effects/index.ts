@@ -1,6 +1,7 @@
+import { createCancellation } from "./cancellation.js";
 import Ajv2020Module from "ajv/dist/2020.js";
 export type EffectMountContext = { width:number; height:number; fps:number; seed:number; assets:Readonly<Record<string, unknown>> };
-export type EffectInstance = { mount(root:HTMLElement, context:EffectMountContext):void | Promise<void>; seek(frame:number):Promise<void>; dispose():void };
+export type EffectInstance = { mount(root:HTMLElement, context:EffectMountContext):void | Promise<void>; seek(frame:number):Promise<void>; cancel?():void; dispose():void };
 export type EffectDescriptor = { schemaVersion:1; id:string; version:string; parametersSchema:Record<string,unknown>; description?:string };
 export type EffectConfig = { id:string; version:string; parameters:Record<string,unknown>; startFrame:number; endFrame:number };
 export type EffectController = { seek(frame:number):Promise<void>; pause():void; dispose():void };
@@ -33,6 +34,7 @@ export function mountEffect(root:HTMLElement, registry:EffectRegistry, config:Ef
   if (!Number.isFinite(context.width) || context.width<=0 || !Number.isFinite(context.height) || context.height<=0 || !Number.isFinite(context.fps) || context.fps<=0 || !Number.isInteger(context.seed) || context.seed<0 || context.seed>0xffffffff || !isRecord(context.assets)) throw new Error('Invalid effect mount context');
   const effect=registry.create(config);
   let disposed=false, cleaned=false, pending=0, mountFailed=false;
+  const cancellation=createCancellation();
   let mountError:unknown;
   const cleanup=(suppressError=false)=>{
     if(cleaned || pending!==0 || (!disposed && !mountFailed)) return;
@@ -61,8 +63,8 @@ export function mountEffect(root:HTMLElement, registry:EffectRegistry, config:Ef
         root.style.visibility=frame>=config.startFrame && frame<config.endFrame ? '' : 'hidden';
         await effect.seek(frame);
         if (typeof document !== 'undefined') {
-          await document.fonts?.ready;
-          await Promise.all(Array.from(root.querySelectorAll('img')).map(image=>image.decode()));
+          await cancellation.wait(document.fonts?.ready);
+          await cancellation.wait(Promise.all(Array.from(root.querySelectorAll('img')).map(image=>image.decode())));
         }
         if(disposed) throw new Error('Effect disposed');
       }).finally(()=>{pending--;cleanup(true);});
@@ -70,6 +72,6 @@ export function mountEffect(root:HTMLElement, registry:EffectRegistry, config:Ef
       return work;
     },
     pause() {},
-    dispose() { if(disposed) return; disposed=true; cleanup(); },
+    dispose() { if(disposed) return; disposed=true; cancellation.cancel(); try { effect.cancel?.(); } finally { cleanup(); } },
   };
 }

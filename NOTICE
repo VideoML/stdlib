@@ -1,0 +1,1 @@
+Shared animation demos in src/demos are adapted from Babulus, Copyright (c) 2026 Ryan Porter, distributed under the MIT license included in LICENSE. Framework dependencies are separate packages and retain their own licenses. The bundled neutral Lottie badge is based on Babulus source code; no external unlicensed animation asset is included.
