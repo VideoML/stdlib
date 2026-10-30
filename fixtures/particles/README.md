@@ -1,0 +1,1 @@
+Geist-Latin.woff2 and Geist-OFL.txt come from Hyperframes commit 28181602fe2d9ffa38474a6e8155a89909a7b8aa, registry/components/caret-swap. The font is Copyright 2024 The Geist Project Authors and licensed under SIL OFL 1.1; the complete license accompanies it. neutral-image.svg is an original neutral fixture created for this repository, distributed under its MIT license.
