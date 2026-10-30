@@ -16,7 +16,8 @@
     "./demos": "./src/demos/index.ts",
     "./effects/particles": "./src/effects/particles/index.ts",
     "./effects/echo-smear": "./src/effects/echo-smear/index.ts",
-    "./effects/transitions": "./src/effects/transitions/index.ts"
+    "./effects/transitions": "./src/effects/transitions/index.ts",
+    "./effects/xml": "./src/effects/xml.ts"
   },
   "scripts": {
     "test:catalog": "node --test tests/catalog.test.mjs",
@@ -26,7 +27,8 @@
     "test:echo-smear:browser": "node --test tests/echo-smear-browser.test.mjs",
     "test:echo-smear:dom-browser": "node --test tests/echo-smear-dom-browser.test.mjs",
     "test:echo-smear:reference": "node --test tests/echo-smear-reference-browser.test.mjs",
-    "test:transitions": "node --import tsx --test tests/transitions/*.test.mjs"
+    "test:transitions": "node --import tsx --test tests/transitions/*.test.mjs",
+    "test:xml-effects": "node --import tsx --test tests/xml-effects/*.test.mjs"
   },
   "dependencies": {
     "ajv": "8.17.1",
