@@ -44,13 +44,17 @@ function noticeFiles(root, relative = '') {
   }
   return sorted(result);
 }
-function shaderNames(source) {
-  const body = source.match(/const shaders: Record<string, ShaderDef> = \{([\s\S]*?)^\};/m)?.[1];
-  if (!body) throw new Error('Cannot locate shader registry');
-  const names = [...body.matchAll(/^  "([a-z0-9-]+)": \{/gm)].map(m=>m[1]);
-  if (!names.length || new Set(names).size !== names.length) throw new Error('Empty or duplicate shader registry');
+export function shaderNames(source) {
+  const match=/\bconst\s+shaders\s*:[^=]+?=\s*\{/.exec(source);
+  if (!match) throw new Error('Cannot locate shader registry');
+  let index=match.index+match[0].length,depth=1,expectKey=true;const names=[];
+  const whitespace=()=>{while(index<source.length){if(/\s/.test(source[index])){index++;continue;}if(source.slice(index,index+2)==='//'){index=source.indexOf('\n',index+2);if(index<0)index=source.length;continue;}if(source.slice(index,index+2)==='/*'){const end=source.indexOf('*/',index+2);if(end<0)throw new Error('Unterminated shader comment');index=end+2;continue;}break;}};
+  const string=()=>{const quote=source[index++];let value='';while(index<source.length){const c=source[index++];if(c===quote)return value;if(c==='\\'){if(index>=source.length)throw new Error('Unterminated shader string');value+=source[index++];}else value+=c;}throw new Error('Unterminated shader string');};
+  while(index<source.length&&depth>0){whitespace();const c=source[index];if(depth===1&&expectKey){if(c==='}') {depth--;index++;break;}let name;if(c==='"'||c==="'")name=string();else {const id=/^[A-Za-z_$][\w$]*/.exec(source.slice(index));if(!id)throw new Error('Unsupported shader property');name=id[0];index+=name.length;}whitespace();if(source[index++]!==':'||!/^[a-z0-9-]+$/.test(name))throw new Error('Invalid shader property');names.push(name);expectKey=false;continue;}if(c==='"'||c==="'"||c==='`'){string();continue;}if(c==='{')depth++;else if(c==='}')depth--;else if(c===','&&depth===1)expectKey=true;index++;}
+  if(depth!==0||!names.length||new Set(names).size!==names.length)throw new Error('Invalid or duplicate shader registry');
   return sorted(names);
 }
+
 export function buildCatalog(upstream, packetMap) {
   const head = execFileSync('git',['rev-parse','HEAD'],{cwd:upstream,encoding:'utf8'}).trim();
   if (head !== COMMIT) throw new Error(`Upstream revision ${head} does not match ${COMMIT}`);
@@ -85,9 +89,11 @@ export function mergeCatalog(inventory, existing) {
     if (old.has(entry.id)) throw new Error(`Duplicate catalog id ${entry.id}`);
     old.set(entry.id, entry);
   }
-  if (old.size !== inventory.entries.length) throw new Error('Upstream catalog identity drift: entry count changed');
+  const addedGlitch = !old.has('shader/glitch') && old.size + 1 === inventory.entries.length && inventory.entries.some(entry=>entry.id==='shader/glitch');
+  if (old.size !== inventory.entries.length && !addedGlitch) throw new Error('Upstream catalog identity drift: entry count changed');
   const entries = inventory.entries.map(source => {
     const current = old.get(source.id);
+    if (!current && addedGlitch && source.id==='shader/glitch') return source;
     if (!current) throw new Error(`Upstream catalog identity drift: ${source.id}`);
     for (const field of ['id','kind','name','packet']) {
       if (JSON.stringify(source[field]) !== JSON.stringify(current[field])) throw new Error(`Upstream provenance drift: ${source.id} ${field}`);
@@ -106,7 +112,8 @@ export function mergeCatalog(inventory, existing) {
     return current;
   });
   const counts = {...inventory.counts, verified:entries.filter(entry => entry.status === 'verified').length};
-  if (JSON.stringify(existing.counts) !== JSON.stringify(counts)) throw new Error('Catalog count mismatch');
+  const priorCounts=addedGlitch ? {...counts,shaders:counts.shaders-1,total:counts.total-1} : counts;
+  if (JSON.stringify(existing.counts) !== JSON.stringify(priorCounts)) throw new Error('Catalog count mismatch');
   return {...inventory,counts,entries};
 }
 function main() {

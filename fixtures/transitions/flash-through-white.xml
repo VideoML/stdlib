@@ -1,0 +1,5 @@
+<vml id="shader-flash-through-white" fps="30" width="1280" height="720">
+  <scene id="from" duration="2s"><video-background props='{"color":"#224466"}'/></scene>
+  <transition id="transition" effect="flash-through-white" duration="1s"/>
+  <scene id="to" duration="2s"><video-background props='{"color":"#88aa66"}'/></scene>
+</vml>
