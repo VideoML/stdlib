@@ -1,10 +1,11 @@
 import {createEffectRegistry,mountEffect,type EffectRegistry,type EffectController,type EffectMountContext} from './index.js';
 import {registerParticleEffects} from './particles/index.js';
 import {registerEchoSmear} from './echo-smear/index.js';
+import {registerCatalogC001} from './catalog-c001/index.js';
 import {registerSceneSnapshot} from './scene-snapshot/index.js';
 
 /** Approved built-ins; callers may construct and supply a different registry. */
-export function createBuiltinEffectRegistry():EffectRegistry {const registry=createEffectRegistry();registerParticleEffects(registry);registerEchoSmear(registry);registerSceneSnapshot(registry);return registry;}
+export function createBuiltinEffectRegistry():EffectRegistry {const registry=createEffectRegistry();registerParticleEffects(registry);registerEchoSmear(registry);registerSceneSnapshot(registry);registerCatalogC001(registry);return registry;}
 function validateData(value:unknown):void {if(value===null||typeof value==='string'||typeof value==='boolean'||typeof value==='number'&&Number.isFinite(value))return;if(Array.isArray(value)){for(const item of value)validateData(item);return;}if(typeof value!=='object'||Object.getPrototypeOf(value)!==Object.prototype)throw new Error('FRAME_EFFECT_INVALID: parameters must be plain JSON');for(const [key,item] of Object.entries(value as Record<string,unknown>)){if(['__proto__','prototype','constructor'].includes(key))throw new Error('FRAME_EFFECT_INVALID: forbidden property');validateData(item);}}
 export function parseFrameEffectProps(raw:string):Record<string,unknown>{let value:unknown;try{value=JSON.parse(raw);}catch{throw new Error('FRAME_EFFECT_INVALID: invalid props JSON');}validateData(value);if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).some(key=>key!=='parameters'))throw new Error('FRAME_EFFECT_INVALID: props must contain only parameters');const params=(value as Record<string,unknown>).parameters;if(!params||typeof params!=='object'||Array.isArray(params))throw new Error('FRAME_EFFECT_INVALID: parameters must be an object');return params as Record<string,unknown>;}
 export type FrameEffectInterval={startFrame:number;endFrame:number};

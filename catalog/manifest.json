@@ -8476,7 +8476,7 @@
         "status",
         "click"
       ],
-      "status": "planned",
+      "status": "implemented",
       "upstream": {
         "commit": "28181602fe2d9ffa38474a6e8155a89909a7b8aa",
         "path": "registry/components/agent-cursor",
@@ -8489,14 +8489,43 @@
         "files": [
           "agent-cursor.html"
         ],
-        "assetRights": "unreviewed; upstream files are references, not approved local fixtures"
+        "assetRights": "no third-party media"
       },
       "dependencies": {
-        "declared": {},
-        "review": "unreviewed"
+        "declared": {
+          "gsap": "3.15.0"
+        },
+        "review": "locally bundled GSAP 3.15.0; source adaptation pending primary visual verification"
       },
-      "parameterSchema": null,
-      "fixtures": [],
+      "parameterSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "agent_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "steps": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "targets": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300,
+            "pattern": "^\\s*\\d+(?:\\.\\d+)?\\s*,\\s*\\d+(?:\\.\\d+)?\\s*(?:;\\s*\\d+(?:\\.\\d+)?\\s*,\\s*\\d+(?:\\.\\d+)?\\s*)*$"
+          },
+          "accent": {
+            "type": "string",
+            "pattern": "^#[0-9a-fA-F]{6}$"
+          }
+        }
+      },
+      "fixtures": [
+        "fixtures/catalog-c001/agent-cursor.xml"
+      ],
       "packet": "videoml-9e6657bb-948e-4d89-a702-aa79462d40cd"
     },
     {
@@ -8509,7 +8538,7 @@
       "tags": [
         "data"
       ],
-      "status": "planned",
+      "status": "implemented",
       "upstream": {
         "commit": "28181602fe2d9ffa38474a6e8155a89909a7b8aa",
         "path": "registry/components/animated-bar-chart",
@@ -8522,14 +8551,49 @@
         "files": [
           "animated-bar-chart.html"
         ],
-        "assetRights": "unreviewed; upstream files are references, not approved local fixtures"
+        "assetRights": "no third-party media"
       },
       "dependencies": {
-        "declared": {},
-        "review": "unreviewed"
+        "declared": {
+          "gsap": "3.15.0"
+        },
+        "review": "locally bundled GSAP 3.15.0; source adaptation pending primary visual verification"
       },
-      "parameterSchema": null,
-      "fixtures": [],
+      "parameterSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "value": {
+            "type": "string",
+            "maxLength": 40
+          },
+          "accent": {
+            "type": "string",
+            "pattern": "^#[0-9a-fA-F]{6}$"
+          },
+          "bars": {
+            "type": "array",
+            "minItems": 7,
+            "maxItems": 7,
+            "items": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        }
+      },
+      "fixtures": [
+        "fixtures/catalog-c001/animated-bar-chart.xml"
+      ],
       "packet": "videoml-9e6657bb-948e-4d89-a702-aa79462d40cd"
     },
     {
@@ -8545,7 +8609,7 @@
         "gsap-plugin",
         "hyperframes-native"
       ],
-      "status": "planned",
+      "status": "implemented",
       "upstream": {
         "commit": "28181602fe2d9ffa38474a6e8155a89909a7b8aa",
         "path": "registry/components/arc-motion-path",
@@ -8558,14 +8622,39 @@
         "files": [
           "arc-motion-path.html"
         ],
-        "assetRights": "unreviewed; upstream files are references, not approved local fixtures"
+        "assetRights": "no third-party media"
       },
       "dependencies": {
-        "declared": {},
-        "review": "unreviewed"
+        "declared": {
+          "gsap": "3.15.0"
+        },
+        "review": "locally bundled GSAP 3.15.0; source adaptation pending primary visual verification"
       },
-      "parameterSchema": null,
-      "fixtures": [],
+      "parameterSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "firstLabel": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "secondLabel": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "accent": {
+            "type": "string",
+            "pattern": "^#[0-9a-fA-F]{6}$"
+          }
+        }
+      },
+      "fixtures": [
+        "fixtures/catalog-c001/arc-motion-path.xml"
+      ],
       "packet": "videoml-9e6657bb-948e-4d89-a702-aa79462d40cd"
     },
     {
@@ -8582,7 +8671,7 @@
         "ascii",
         "quantize"
       ],
-      "status": "planned",
+      "status": "implemented",
       "upstream": {
         "commit": "28181602fe2d9ffa38474a6e8155a89909a7b8aa",
         "path": "registry/components/ascii-render-pass",
@@ -8595,14 +8684,64 @@
         "files": [
           "ascii-render-pass.html"
         ],
-        "assetRights": "unreviewed; upstream files are references, not approved local fixtures"
+        "assetRights": "authored P03b snapshot and licensed Geist font"
       },
       "dependencies": {
         "declared": {},
-        "review": "unreviewed"
+        "review": "locally bundled GSAP 3.15.0; source adaptation pending primary visual verification"
       },
-      "parameterSchema": null,
-      "fixtures": [],
+      "parameterSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sourceSceneId",
+          "sourceFrame"
+        ],
+        "properties": {
+          "sourceSceneId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sourceFrame": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "charset": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 256
+          },
+          "grid": {
+            "enum": [
+              "coarse",
+              "med",
+              "fine"
+            ]
+          },
+          "resolve_at": {
+            "type": "number",
+            "minimum": 0.6,
+            "maximum": 10
+          },
+          "accent": {
+            "enum": [
+              "green",
+              "blue",
+              "violet"
+            ]
+          },
+          "exit": {
+            "enum": [
+              "none",
+              "fade",
+              "up"
+            ]
+          }
+        }
+      },
+      "fixtures": [
+        "fixtures/catalog-c001/ascii-render-pass.xml"
+      ],
       "packet": "videoml-9e6657bb-948e-4d89-a702-aa79462d40cd"
     },
     {
@@ -8620,7 +8759,7 @@
         "trail",
         "grid"
       ],
-      "status": "planned",
+      "status": "implemented",
       "upstream": {
         "commit": "28181602fe2d9ffa38474a6e8155a89909a7b8aa",
         "path": "registry/components/ascii-trail-reveal",
@@ -8633,14 +8772,40 @@
         "files": [
           "ascii-trail-reveal.html"
         ],
-        "assetRights": "unreviewed; upstream files are references, not approved local fixtures"
+        "assetRights": "no third-party media"
       },
       "dependencies": {
-        "declared": {},
-        "review": "unreviewed"
+        "declared": {
+          "gsap": "3.15.0"
+        },
+        "review": "locally bundled GSAP 3.15.0; source adaptation pending primary visual verification"
       },
-      "parameterSchema": null,
-      "fixtures": [],
+      "parameterSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "accent": {
+            "enum": [
+              "green",
+              "blue",
+              "violet"
+            ]
+          },
+          "trail_width": {
+            "enum": [
+              "narrow",
+              "wide"
+            ]
+          }
+        }
+      },
+      "fixtures": [
+        "fixtures/catalog-c001/ascii-trail-reveal.xml"
+      ],
       "packet": "videoml-9e6657bb-948e-4d89-a702-aa79462d40cd"
     },
     {

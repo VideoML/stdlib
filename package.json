@@ -17,7 +17,8 @@
     "./effects/particles": "./src/effects/particles/index.ts",
     "./effects/echo-smear": "./src/effects/echo-smear/index.ts",
     "./effects/transitions": "./src/effects/transitions/index.ts",
-    "./effects/xml": "./src/effects/xml.ts"
+    "./effects/xml": "./src/effects/xml.ts",
+    "./effects/catalog-c001": "./src/effects/catalog-c001/index.ts"
   },
   "scripts": {
     "test:catalog": "node --test tests/catalog.test.mjs",
@@ -28,7 +29,9 @@
     "test:echo-smear:dom-browser": "node --test tests/echo-smear-dom-browser.test.mjs",
     "test:echo-smear:reference": "node --test tests/echo-smear-reference-browser.test.mjs",
     "test:transitions": "node --import tsx --test tests/transitions/*.test.mjs",
-    "test:xml-effects": "node --import tsx --test tests/xml-effects/*.test.mjs"
+    "test:xml-effects": "node --import tsx --test tests/xml-effects/*.test.mjs",
+    "test:catalog-c001": "node --import tsx --test tests/catalog-c001/registry.test.mjs tests/catalog-c001/ascii-pass.test.mjs",
+    "test:catalog-c001:browser": "node --test tests/catalog-c001/browser.test.mjs"
   },
   "dependencies": {
     "ajv": "8.17.1",
@@ -37,7 +40,8 @@
     "d3": "7.9.0",
     "lottie-web": "5.13.0",
     "p5": "1.11.13",
-    "framer-motion": "11.18.2"
+    "framer-motion": "11.18.2",
+    "gsap": "3.15.0"
   },
   "peerDependencies": {
     "react": "^18.0.0",

@@ -1,0 +1,5 @@
+<vml id="ascii-trail-reveal-example" width="1280" height="720" fps="30" duration="4s">
+  <scene id="example" start="0s" duration="4s">
+    <frame-effect id="effect" effect-id="videoml/ascii-trail-reveal" effect-version="1" props='{"parameters":{}}'/>
+  </scene>
+</vml>
