@@ -2,6 +2,9 @@
  * Captured ImageBitmaps transfer ownership to the compositor; other image sources are borrowed. */
 import { createPixelRenderer, type TransitionShader } from './renderer.js';
 export { createPixelRenderer } from './renderer.js';
+export {shaderNames,validateTransitionOptions,transitionEasedProgress} from './shaders.js';
+export type {ApprovedShader,TransitionOptions} from './shaders.js';
+import {transitionEasedProgress,type TransitionOptions} from './shaders.js';
 export type { PixelRenderer, TransitionShader } from './renderer.js';
 export interface SceneFrameSource {seek(frame:number,signal:AbortSignal):void|Promise<void>;capture(signal:AbortSignal):Promise<CanvasImageSource>;dispose():void}
 export type TransitionDiagnostic='CROSSFADE_FALLBACK';
@@ -13,20 +16,20 @@ function release(source:CanvasImageSource|undefined){if(source && typeof (source
 function wait<T>(work:Promise<T>|T,signal:AbortSignal,onLate?:(value:T)=>void):Promise<T>{return new Promise((resolve,reject)=>{let settled=false;const abort=()=>{if(settled)return;settled=true;reject(new Error('Transition aborted or disposed'));};if(signal.aborted){abort();Promise.resolve(work).then(v=>onLate?.(v),()=>{});return;}signal.addEventListener('abort',abort,{once:true});Promise.resolve(work).then(value=>{signal.removeEventListener('abort',abort);if(settled){onLate?.(value);return;}settled=true;resolve(value)},error=>{signal.removeEventListener('abort',abort);if(!settled){settled=true;reject(error)}});});}
 function assertSource(source:SceneFrameSource|undefined):asserts source is SceneFrameSource {if(!source||typeof source.seek!=='function'||typeof source.capture!=='function'||typeof source.dispose!=='function')throw new SceneCaptureError('A settled scene capture provider is required');}
 /** Coordinate two independent sources; a capture error is never a hardware fallback. */
-export function createSceneTransition(options:{from?:SceneFrameSource;to?:SceneFrameSource;startFrame:number;endFrame:number;render:Render;disposeRenderer?:()=>void}):SceneTransition {
+export function createSceneTransition(options:{from?:SceneFrameSource;to?:SceneFrameSource;startFrame:number;endFrame:number;render:Render;disposeRenderer?:()=>void;ease?:(value:number)=>number}):SceneTransition {
  const {startFrame,endFrame,render}=options;transitionProgress(0,startFrame,endFrame);assertSource(options.from);assertSource(options.to);if(options.from===options.to)throw new SceneCaptureError('Two independent scene sources are required');if(typeof render!=='function')throw new Error('Transition renderer is required');
  let from=options.from,to=options.to,disposed=false,epoch=0,queue:Promise<unknown>=Promise.resolve();const active=new Set<AbortController>();
  const disposeSources=(sources:Iterable<SceneFrameSource>)=>{let firstError:unknown,failed=false;for(const source of new Set(sources)){try{source.dispose();}catch(error){if(!failed){firstError=error;failed=true;}}}if(failed)throw firstError;};
  return {
   seek(frame,external){try{transitionProgress(frame,startFrame,endFrame)}catch(error){return Promise.reject(error)}if(disposed)return Promise.reject(new Error('Transition disposed'));const generation=epoch,controller=new AbortController();active.add(controller);const cancel=()=>controller.abort();external?.addEventListener('abort',cancel,{once:true});if(external?.aborted)controller.abort();
-   const work=queue.then(async()=>{if(disposed||generation!==epoch||controller.signal.aborted)throw new Error('Transition aborted or disposed');let first:CanvasImageSource|undefined,second:CanvasImageSource|undefined;try{await wait(from.seek(frame,controller.signal),controller.signal);await wait(to.seek(frame,controller.signal),controller.signal);first=await wait(from.capture(controller.signal),controller.signal,release);second=await wait(to.capture(controller.signal),controller.signal,release);if(disposed||generation!==epoch)throw new Error('Transition disposed');await wait(render(first,second,transitionProgress(frame,startFrame,endFrame),controller.signal),controller.signal);}finally{release(first);if(second!==first)release(second);}}).finally(()=>{active.delete(controller);external?.removeEventListener('abort',cancel)});queue=work.catch(()=>{});return work;
+   const work=queue.then(async()=>{if(disposed||generation!==epoch||controller.signal.aborted)throw new Error('Transition aborted or disposed');let first:CanvasImageSource|undefined,second:CanvasImageSource|undefined;try{await wait(from.seek(frame,controller.signal),controller.signal);await wait(to.seek(frame,controller.signal),controller.signal);first=await wait(from.capture(controller.signal),controller.signal,release);second=await wait(to.capture(controller.signal),controller.signal,release);if(disposed||generation!==epoch)throw new Error('Transition disposed');await wait(render(first,second,transitionEasedProgress(transitionProgress(frame,startFrame,endFrame),options.ease),controller.signal),controller.signal);}finally{release(first);if(second!==first)release(second);}}).finally(()=>{active.delete(controller);external?.removeEventListener('abort',cancel)});queue=work.catch(()=>{});return work;
   },
   async updateSources(nextFrom,nextTo){assertSource(nextFrom);assertSource(nextTo);if(nextFrom===nextTo)throw new SceneCaptureError('Two independent scene sources are required');if(disposed)throw new Error('Transition disposed');const generation=++epoch;for(const c of active)c.abort();await queue;if(disposed)throw new Error('Transition disposed');if(generation!==epoch)throw new Error('Transition update superseded');const oldFrom=from,oldTo=to;from=nextFrom;to=nextTo;disposeSources([oldFrom,oldTo].filter(source=>source!==from&&source!==to));},
   dispose(){if(disposed)return;disposed=true;epoch++;for(const c of active)c.abort();let firstError:unknown,failed=false;try{disposeSources([from,to]);}catch(error){firstError=error;failed=true;}try{options.disposeRenderer?.();}catch(error){if(!failed){firstError=error;failed=true;}}if(failed)throw firstError;},
  };
 }
 /** Mount the same pixel compositor used by preview and captured-scene export. */
-export function mountSceneCompositor(root:HTMLElement,options:{from?:SceneFrameSource;to?:SceneFrameSource;startFrame:number;endFrame:number;width:number;height:number;shader:TransitionShader;allowCrossfadeFallback?:boolean;onDiagnostic?:(diagnostic:TransitionDiagnostic)=>void}):SceneTransition & {canvas:HTMLCanvasElement} {
+export function mountSceneCompositor(root:HTMLElement,options:{from?:SceneFrameSource;to?:SceneFrameSource;startFrame:number;endFrame:number;width:number;height:number;shader:TransitionShader;parameters?:TransitionOptions;ease?:(value:number)=>number;allowCrossfadeFallback?:boolean;onDiagnostic?:(diagnostic:TransitionDiagnostic)=>void}):SceneTransition & {canvas:HTMLCanvasElement} {
  assertSource(options.from);assertSource(options.to);transitionProgress(0,options.startFrame,options.endFrame);
  const renderer=createPixelRenderer(root,options);
  try {const transition=createSceneTransition({...options,render:(from,to,progress)=>renderer.render(from,to,progress),disposeRenderer:()=>renderer.dispose()});return {...transition,canvas:renderer.canvas};}
@@ -34,7 +37,7 @@ export function mountSceneCompositor(root:HTMLElement,options:{from?:SceneFrameS
 }
 
 /** Bridge for trusted local renderer bundles receiving captured PNGs as base64. */
-export function mountCapturedSceneCompositor(root:HTMLElement,options:{startFrame:number;endFrame:number;width:number;height:number;shader:TransitionShader;allowCrossfadeFallback?:boolean;onDiagnostic?:(diagnostic:TransitionDiagnostic)=>void}) {
+export function mountCapturedSceneCompositor(root:HTMLElement,options:{startFrame:number;endFrame:number;width:number;height:number;shader:TransitionShader;parameters?:TransitionOptions;ease?:(value:number)=>number;allowCrossfadeFallback?:boolean;onDiagnostic?:(diagnostic:TransitionDiagnostic)=>void}) {
  let first:ImageBitmap|undefined,second:ImageBitmap|undefined,disposed=false,busy=false;const controller=new AbortController();
  const source=(select:()=>ImageBitmap|undefined):SceneFrameSource=>({seek(){},async capture(){const value=select();if(!value)throw new SceneCaptureError('Scene pixels are unavailable');return value;},dispose(){}});
  const compositor=mountSceneCompositor(root,{...options,from:source(()=>first),to:source(()=>second)});

@@ -21,9 +21,9 @@ import { readFileSync, existsSync } from 'node:fs';
 const manifest=JSON.parse(readFileSync(new URL('../catalog/manifest.json', import.meta.url)));
 const map=JSON.parse(readFileSync(new URL('../catalog/packet-map.json', import.meta.url)));
 test('manifest has exhaustive unique identities, packet mappings and auditable planned provenance', () => {
-  assert.deepEqual(manifest.counts, {registry:456, shaders:13, total:469, verified:manifest.entries.filter(e=>e.status==='verified').length});
-  assert.equal(manifest.entries.length,469);
-  assert.equal(new Set(manifest.entries.map(e=>e.id)).size,469);
+  assert.deepEqual(manifest.counts, {registry:456, shaders:14, total:470, verified:manifest.entries.filter(e=>e.status==='verified').length});
+  assert.equal(manifest.entries.length,470);
+  assert.equal(new Set(manifest.entries.map(e=>e.id)).size,470);
   assert.equal(map.packets.length,92);
   const registry = manifest.entries.filter(e => e.kind !== 'shader');
   const owners = validatePacketCoverage(registry.map(e=>e.upstream.path),map.packets);
@@ -74,3 +74,5 @@ test('verified entries require parameter schema, fixtures and accurate verified 
   candidate.counts.verified=1;
   assert.equal(mergeCatalog(baseline,candidate).counts.verified,1);
 });
+
+test('shader inventory includes unquoted keys without executing source',async()=>{const {shaderNames}=await import('../scripts/import-hyperframes-catalog.mjs');const source=`const shaders: Record<string, ShaderDef> = { "domain-warp": { frag: "value, {" }, glitch: { frag: "x" } };`;assert.deepEqual(shaderNames(source),['domain-warp','glitch']);});

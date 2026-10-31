@@ -1,0 +1,5 @@
+<vml id="shader-sweep" fps="30" width="1280" height="720">
+  <scene id="from" duration="2s"><video-background props='{"color":"#224466"}'/></scene>
+  <transition id="warp" effect="domain-warp" duration="1s" ease="power1.inOut" props='{"accent":[1,0.6,0.2],"backgroundColor":"#101820"}'/>
+  <scene id="to" duration="2s"><video-background props='{"color":"#88aa66"}'/></scene>
+</vml>

@@ -1,6 +1,6 @@
 # Hyperframes catalog inventory
 
-`manifest.json` is an inventory of the registry and shader keys at the pinned upstream revision, not an implementation catalog. IDs use `kind/name`; duplicate display titles do not collapse entries. The root counts distinguish 456 registry entries and 13 shader keys. `packet-map.json` is a snapshot of the 92 C packet identities and exact paths from the VideoML Kanbus board; shaders are assigned to P08. `NOTICE.md` describes source declarations and the unresolved asset-rights review.
+`manifest.json` is an inventory of the registry and shader keys at the pinned upstream revision, not an implementation catalog. IDs use `kind/name`; duplicate display titles do not collapse entries. The root counts distinguish 456 registry entries and 14 shader keys. `packet-map.json` is a snapshot of the 92 C packet identities and exact paths from the VideoML Kanbus board; shaders are assigned to P08. `NOTICE.md` describes source declarations and the unresolved asset-rights review.
 
 To verify against the pinned, clean source checkout:
 
