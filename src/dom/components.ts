@@ -829,7 +829,7 @@ export const registerFallbackComponents = (root: Element) => {
   const elements = [root, ...Array.from(root.querySelectorAll("*"))];
   for (const el of elements) {
     const tag = el.tagName.toLowerCase();
-    if (!tag.includes("-")) continue;
+    if (!tag.includes("-") || tag === "frame-effect") continue;
     tags.add(tag);
   }
   for (const tag of tags) {

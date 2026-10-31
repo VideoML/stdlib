@@ -1,6 +1,6 @@
 import { createCancellation } from "./cancellation.js";
 import Ajv2020Module from "ajv/dist/2020.js";
-export type EffectMountContext = { width:number; height:number; fps:number; seed:number; assets:Readonly<Record<string, unknown>> };
+export type EffectMountContext = { width:number; height:number; fps:number; seed:number; assets:Readonly<Record<string, unknown>>; readonly timing?:Readonly<{startFrame:number;endFrame:number}> };
 export type EffectInstance = { mount(root:HTMLElement, context:EffectMountContext):void | Promise<void>; seek(frame:number):Promise<void>; cancel?():void; dispose():void };
 export type EffectDescriptor = { schemaVersion:1; id:string; version:string; parametersSchema:Record<string,unknown>; description?:string };
 export type EffectConfig = { id:string; version:string; parameters:Record<string,unknown>; startFrame:number; endFrame:number };
@@ -32,7 +32,9 @@ export function createEffectRegistry() {
 export type EffectRegistry = ReturnType<typeof createEffectRegistry>;
 export function mountEffect(root:HTMLElement, registry:EffectRegistry, config:EffectConfig, context:EffectMountContext):EffectController {
   if (!Number.isFinite(context.width) || context.width<=0 || !Number.isFinite(context.height) || context.height<=0 || !Number.isFinite(context.fps) || context.fps<=0 || !Number.isInteger(context.seed) || context.seed<0 || context.seed>0xffffffff || !isRecord(context.assets)) throw new Error('Invalid effect mount context');
-  const effect=registry.create(config);
+  const {startFrame,endFrame}=config;
+  const effect=registry.create({...config,startFrame,endFrame});
+  const timing=Object.freeze({startFrame,endFrame});
   let disposed=false, cleaned=false, pending=0, mountFailed=false;
   const cancellation=createCancellation();
   let mountError:unknown;
@@ -43,7 +45,7 @@ export function mountEffect(root:HTMLElement, registry:EffectRegistry, config:Ef
     finally { root.replaceChildren(); }
   };
   let result:void | Promise<void>;
-  try { result=effect.mount(root,context); }
+  try { result=effect.mount(root,{...context,timing}); }
   catch(error) { mountFailed=true; try { cleanup(true); } catch {} throw error; }
   const asynchronous = !!result && typeof (result as Promise<void>).then === 'function';
   if (asynchronous) pending++;
@@ -60,7 +62,7 @@ export function mountEffect(root:HTMLElement, registry:EffectRegistry, config:Ef
       const work=queue.then(async()=>{
         if(disposed) throw new Error('Effect disposed');
         if(mountFailed) throw mountError;
-        root.style.visibility=frame>=config.startFrame && frame<config.endFrame ? '' : 'hidden';
+        root.style.visibility=frame>=startFrame && frame<endFrame ? '' : 'hidden';
         await effect.seek(frame);
         if (typeof document !== 'undefined') {
           await cancellation.wait(document.fonts?.ready);
