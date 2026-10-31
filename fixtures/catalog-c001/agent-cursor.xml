@@ -1,0 +1,5 @@
+<vml id="agent-cursor-example" width="1280" height="720" fps="30" duration="4.8s">
+  <scene id="example" start="0s" duration="4.8s">
+    <frame-effect id="effect" effect-id="videoml/agent-cursor" effect-version="1" props='{"parameters":{}}'/>
+  </scene>
+</vml>

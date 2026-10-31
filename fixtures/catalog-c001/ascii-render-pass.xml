@@ -1,0 +1,10 @@
+<vml id="ascii-authored-example" width="320" height="240" fps="30" duration="8s">
+  <assets><asset id="font" src="fonts/Geist.woff2" media-type="font/woff2"/></assets>
+  <scene id="source" start="2s" duration="2s">
+    <video-title id="source-title" props='{"text":"Authored source","fontSize":20,"color":"#151515","position":{"x":20,"y":20}}'/>
+    <frame-effect id="source-canvas" effect-id="videoml/particle-text-dissolve" effect-version="1" props='{"parameters":{"text":"Scene","density":"low","accent":"blue"}}'/>
+  </scene>
+  <scene id="sink" start="4s" duration="4s">
+    <frame-effect id="ascii" effect-id="videoml/ascii-render-pass" effect-version="1" props='{"parameters":{"sourceSceneId":"source","sourceFrame":75}}'/>
+  </scene>
+</vml>

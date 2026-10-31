@@ -3,7 +3,8 @@ export type SceneInputDescriptor=Readonly<{id:string;version:string;sceneInputs:
 
 /** Shared data-only catalog, available without running effect factories. */
 export const builtinSceneInputDescriptors:ReadonlyArray<SceneInputDescriptor>=Object.freeze([
-  ...['particle-text-dissolve','particle-image-reveal','echo-smear'].map(id=>Object.freeze({id:`videoml/${id}`,version:'1',sceneInputs:Object.freeze([])})),
+  ...['particle-text-dissolve','particle-image-reveal','echo-smear','agent-cursor','animated-bar-chart','arc-motion-path','ascii-trail-reveal'].map(id=>Object.freeze({id:`videoml/${id}`,version:'1',sceneInputs:Object.freeze([])})),
+  Object.freeze({id:'videoml/ascii-render-pass',version:'1',sceneInputs:Object.freeze([Object.freeze({sceneIdParameter:'sourceSceneId',frameParameter:'sourceFrame'})])}),
   Object.freeze({id:'videoml/scene-snapshot',version:'1',sceneInputs:Object.freeze([Object.freeze({sceneIdParameter:'sourceSceneId',frameParameter:'sourceFrame'})])}),
 ]);
 const parameter=/^[A-Za-z_$][A-Za-z0-9_$]*$/;
