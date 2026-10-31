@@ -1,14 +1,41 @@
 import { createCancellation } from "./cancellation.js";
+import {validateSceneInputPairs} from './scene-descriptors.js';
 import Ajv2020Module from "ajv/dist/2020.js";
-export type EffectMountContext = { width:number; height:number; fps:number; seed:number; assets:Readonly<Record<string, unknown>>; readonly timing?:Readonly<{startFrame:number;endFrame:number}> };
+export {planSceneSnapshots} from './scene-snapshots.js';
+export {builtinSceneInputDescriptors,validateCustomSceneDescriptors} from './scene-descriptors.js';
+export type {SceneInputDescriptor} from './scene-descriptors.js';
+export type {SceneSnapshotRequest} from './scene-snapshots.js';
+export type OwnedSceneSnapshot = {readonly bitmap:ImageBitmap;close():void};
+export type SceneSnapshotProvider = {capture(request:{sceneId:string;frame:number;signal:AbortSignal}):Promise<OwnedSceneSnapshot>};
+export type EffectMountContext = { width:number; height:number; fps:number; seed:number; assets:Readonly<Record<string, unknown>>; readonly timing?:Readonly<{startFrame:number;endFrame:number}>; readonly sceneSnapshots?:SceneSnapshotProvider };
 export type EffectInstance = { mount(root:HTMLElement, context:EffectMountContext):void | Promise<void>; seek(frame:number):Promise<void>; cancel?():void; dispose():void };
-export type EffectDescriptor = { schemaVersion:1; id:string; version:string; parametersSchema:Record<string,unknown>; description?:string };
+export type EffectDescriptor = { schemaVersion:1; id:string; version:string; parametersSchema:Record<string,unknown>; description?:string; sceneInputs?:ReadonlyArray<Readonly<{sceneIdParameter:string;frameParameter:string}>> };
 export type EffectConfig = { id:string; version:string; parameters:Record<string,unknown>; startFrame:number; endFrame:number };
 export type EffectController = { seek(frame:number):Promise<void>; pause():void; dispose():void };
 export type ParameterValidator = (parameters:Record<string,unknown>) => boolean;
 type Registration = { descriptor:EffectDescriptor; validate:ParameterValidator; validateSchema:ParameterValidator; create:(parameters:Record<string,unknown>)=>EffectInstance };
 const isRecord = (value:unknown):value is Record<string,unknown> => !!value && typeof value==='object' && !Array.isArray(value);
 const validFrame = (frame:number) => Number.isSafeInteger(frame) && frame >= 0;
+export function captureSceneSnapshot(provider:SceneSnapshotProvider|undefined,request:{sceneId:string;frame:number;signal:AbortSignal}):Promise<OwnedSceneSnapshot> {
+  if(!provider || typeof provider.capture!=='function') return Promise.reject(new Error('SCENE_CAPTURE_UNAVAILABLE'));
+  if(typeof request.sceneId!=='string'||!request.sceneId||!validFrame(request.frame)) return Promise.reject(new Error('SCENE_CAPTURE_INVALID'));
+  if(request.signal.aborted) return Promise.reject(new Error('SCENE_CAPTURE_CANCELLED'));
+  request=Object.freeze({sceneId:request.sceneId,frame:request.frame,signal:request.signal});
+  return new Promise((resolve,reject)=>{
+    let finished=false;
+    const timer=setTimeout(()=>finishError(new Error('SCENE_CAPTURE_TIMEOUT')),10000);
+    const finishError=(error:unknown)=>{if(finished)return;finished=true;clearTimeout(timer);request.signal.removeEventListener('abort',abort);reject(error);};
+    const abort=()=>finishError(new Error('SCENE_CAPTURE_CANCELLED'));
+    request.signal.addEventListener('abort',abort,{once:true});
+    Promise.resolve().then(()=>{if(finished)throw new Error('SCENE_CAPTURE_CANCELLED');return provider.capture(request)}).then(bitmap=>{
+      if(finished){try{bitmap?.close?.()}catch{}return;}
+      finished=true;clearTimeout(timer);request.signal.removeEventListener('abort',abort);
+      if(!bitmap||typeof bitmap.close!=='function'||!bitmap.bitmap||!Number.isSafeInteger(bitmap.bitmap.width)||!Number.isSafeInteger(bitmap.bitmap.height)||bitmap.bitmap.width<1||bitmap.bitmap.height<1||bitmap.bitmap.width>4096||bitmap.bitmap.height>4096||bitmap.bitmap.width*bitmap.bitmap.height>4194304){try{bitmap?.close?.()}catch{}reject(new Error('SCENE_CAPTURE_LIMIT: bitmap'));return;}
+      resolve(bitmap);
+    },finishError);
+    if(request.signal.aborted)abort();
+  });
+}
 export function createEffectRegistry() {
   const entries = new Map<string,Registration>();
   const Ajv2020 = (Ajv2020Module as any).default ?? Ajv2020Module;
@@ -16,16 +43,25 @@ export function createEffectRegistry() {
   const key = (id:string,version:string) => JSON.stringify([id,version]);
   return {
     register(descriptor:EffectDescriptor, validate:ParameterValidator, create:Registration['create']):void {
-      if (!isRecord(descriptor) || Object.keys(descriptor).some(k=>!['schemaVersion','id','version','parametersSchema','description'].includes(k)) || descriptor.schemaVersion!==1 || typeof descriptor.id!=='string' || !descriptor.id || typeof descriptor.version!=='string' || !descriptor.version || (descriptor.description!==undefined && (typeof descriptor.description!=='string' || !descriptor.description)) || !isRecord(descriptor.parametersSchema) || typeof validate!=='function' || typeof create!=='function') throw new Error('Invalid effect registration');
+      if (!isRecord(descriptor) || Object.keys(descriptor).some(k=>!['schemaVersion','id','version','parametersSchema','description','sceneInputs'].includes(k)) || descriptor.schemaVersion!==1 || typeof descriptor.id!=='string' || !descriptor.id || typeof descriptor.version!=='string' || !descriptor.version || (descriptor.description!==undefined && (typeof descriptor.description!=='string' || !descriptor.description)) || !isRecord(descriptor.parametersSchema) || (descriptor.sceneInputs!==undefined && (!Array.isArray(descriptor.sceneInputs) || descriptor.sceneInputs.length>4 || descriptor.sceneInputs.some((input:any)=>!isRecord(input)||Object.keys(input).some(k=>!['sceneIdParameter','frameParameter'].includes(k))||typeof input.sceneIdParameter!=='string'||!input.sceneIdParameter||typeof input.frameParameter!=='string'||!input.frameParameter))) || typeof validate!=='function' || typeof create!=='function') throw new Error('Invalid effect registration');
       const id=key(descriptor.id,descriptor.version); if(entries.has(id)) throw new Error(`Duplicate effect ${descriptor.id}@${descriptor.version}`);
       const validateSchema = ajv.compile(descriptor.parametersSchema) as ParameterValidator;
-      entries.set(id,{descriptor,validate,validateSchema,create});
+      const sceneInputs=descriptor.sceneInputs===undefined?undefined:validateSceneInputPairs(descriptor.sceneInputs).map(input=>Object.freeze({...input}));
+      entries.set(id,{descriptor:{...descriptor,sceneInputs:sceneInputs && Object.freeze(sceneInputs)},validate,validateSchema,create});
     },
     create(config:EffectConfig):EffectInstance {
       if (!isRecord(config) || Object.keys(config).some(k=>!['id','version','parameters','startFrame','endFrame'].includes(k)) || typeof config.id!=='string' || !config.id || typeof config.version!=='string' || !config.version || !isRecord(config.parameters) || !validFrame(config.startFrame) || !validFrame(config.endFrame) || config.endFrame < config.startFrame) throw new Error('Invalid effect configuration');
       const entry=entries.get(key(config.id,config.version)); if(!entry) throw new Error(`Unknown effect ${config.id}@${config.version}`);
       if(!entry.validateSchema(config.parameters) || !entry.validate(config.parameters)) throw new Error(`Invalid parameters for ${config.id}@${config.version}`);
       return entry.create(config.parameters);
+    },
+    sceneInputs(config:EffectConfig):Array<{sceneId:string;frame:number}> {
+      const entry=entries.get(key(config.id,config.version));if(!entry)throw new Error(`Unknown effect ${config.id}@${config.version}`);
+      if(!isRecord(config.parameters)||!entry.validateSchema(config.parameters)||!entry.validate(config.parameters))throw new Error(`Invalid parameters for ${config.id}@${config.version}`);
+      return (entry.descriptor.sceneInputs??[]).flatMap(({sceneIdParameter,frameParameter})=>{const sceneId=config.parameters[sceneIdParameter],frame=config.parameters[frameParameter];if(sceneId===undefined&&frame===undefined)return [];if(typeof sceneId!=='string'||!sceneId||typeof frame!=='number'||!validFrame(frame))throw new Error('SCENE_CAPTURE_INVALID');return [{sceneId,frame}];});
+    },
+    sceneInputMetadata(id:string,version:string):ReadonlyArray<Readonly<{sceneIdParameter:string;frameParameter:string}>> {
+      const entry=entries.get(key(id,version));if(!entry)throw new Error(`Unknown effect ${id}@${version}`);return entry.descriptor.sceneInputs??[];
     },
   };
 }
